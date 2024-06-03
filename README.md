@@ -4,7 +4,7 @@
 - [JupyterLab](https://github.com/jupyterlab/jupyterlab)
 
 ## Introduce
-I originally built this image to be able to use unsloth for large model training on my home Windows 10 gaming machine (with Nvidia RTX4070 graphics card). It can run well on Ubuntu 22 (WSL2). If your situation is the same as mine, you can also use this image directly. Otherwise, you may need to slightly adjust this Dockerfile. Good luck.
+I originally built this image to be able to use unsloth for large model training on my home Windows 10 gaming machine (with Nvidia RTX4070 graphics card which uses an ampere architecture). It can run well on Ubuntu 22 (WSL2). If your situation is the same as mine, you can also use this image directly. Otherwise, you may need to slightly adjust this Dockerfile. Good luck.
 
 
 ## Run
@@ -50,17 +50,25 @@ docker run -d --name jupyter4unsloth \
   jiar/jupyter4unsloth:latest
 ```
 
-#### Build it yourself
-If your graphics card model is not the same as mine, you may need to refer to the official instructions of [unsloth](https://github.com/unslothai/unsloth), adjust the Dockerfile slightly, and finally build your own Docker to complete the adaptation.
+#### Build it yourself (Optional)
+If your graphics card model is not the same as mine (Nvidia RTX4070 graphics card which uses an ampere architecture) , you may need to refer to the official instructions of [unsloth](https://github.com/unslothai/unsloth), adjust the Dockerfile slightly, and finally build your own Docker to complete the adaptation.
+
+**Ampere Card**: The Nvidia Ampere architecture include: RTX 3060 or higher (A100, H100 etc)
+
+**Old Card**: Pre Ampere architecture include: RTX 2080, T4, GTX 1080 etc
+
+If you have an **Old Card**, all you need to do is go to the Dockerfile, Will the `RUN pip install "unsloth[cu121-ampere-torch230] @ git+https://github.com/unslothai/unsloth.git"` replaced with `RUN pip install "unsloth[cu121-torch230] @ git+https://github.com/unslothai/unsloth.git"` can, it should be possible, although I haven't tested (because I don't have the corresponding video card, please let me know if it works after you test it)
 
 ```sh
 git clone https://github.com/Jiar/jupyter4unsloth
 cd ./jupyter4unsloth
+# Update the Dockerfile here
 docker build -t jupyter4unsloth .
 ```
 
 ### Run on Linux direct
-This Dockerfile is most likely compatible with Linux, but because I don't have a machine with an NVIDIA graphics card installed directly on the Linux system, I haven't tested it. On Linux, you can roughly refer to the steps of WSL, but you don't need to install WSL anymore.
+This Dockerfile is most likely compatible with Linux, but because I don't have a machine with an NVIDIA graphics card installed directly on the Linux system, I haven't tested it. On Linux, you can roughly refer to the steps of WSL, but you don't need to install WSL anymore. I will improve this part when I have the relevant machine.
+
 
 ## End
 There is nothing here

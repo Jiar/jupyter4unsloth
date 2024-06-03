@@ -39,6 +39,7 @@ RUN pip config set global.timeout 3600
 RUN pip install numpy pandas scipy matplotlib seaborn scikit-learn datasets
 
 # Install unsloth
+# RUN pip install "unsloth[cu121-torch230] @ git+https://github.com/unslothai/unsloth.git"
 RUN pip install "unsloth[cu121-ampere-torch230] @ git+https://github.com/unslothai/unsloth.git"
 
 # Install trl, peft, accelerate, bitsandbytes
