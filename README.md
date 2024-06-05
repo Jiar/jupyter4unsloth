@@ -14,31 +14,31 @@ I originally built this image to be able to use unsloth for large model training
 - Do not install `Docker Desktop for Windows` and use the WSL integration features above, as it will cause CUDA to be unavailable
 
 
-#### Install NVIDIA Windows Driver
+#### 1. Install NVIDIA Windows Driver
 Install regular Nvidia graphics drivers, usually they support WSL2
 
 - [NVIDIA Driver Downloads](https://www.nvidia.com/Download/index.aspx)
 
-#### Install WSL2 on Windows
+#### 2. Install WSL2 on Windows
 This step requires the installation of WSL, and the WSL2 version is required. Then use WSL2 to install the Linux system. It is recommended to install the Ubuntu22 system.
 
 - [Getting Started with CUDA on WSL 2](https://docs.nvidia.com/cuda/wsl-user-guide/index.html#getting-started-with-cuda-on-wsl-2)
 - [Upgrade version from WSL 1 to WSL 2](https://learn.microsoft.com/en-us/windows/wsl/install#upgrade-version-from-wsl-1-to-wsl-2)
 
 
-#### Install Docker Engine on Linux
+#### 3. Install Docker Engine on Linux
 After you successfully install Ubuntu22 on WSL2, you need to enter Ubuntu22 and install the Docker engine.
 
 - [Install Docker Engine on Ubuntu](https://docs.docker.com/engine/install/ubuntu/)
 
-#### Installing the NVIDIA Container Toolkit and Configurate it
+#### 4. Installing the NVIDIA Container Toolkit and Configurate it
 Installing the NVIDIA Container Toolkit and Configurate it
 
 - [Install the NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html#installation)
 - [Configurate the NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html#configuration)
 
 
-#### Run the jupyter4unsloth docker
+#### 5. Run the jupyter4unsloth docker
 run the jupyter4unsloth docker
 
 ```sh
@@ -50,7 +50,7 @@ docker run -d --name jupyter4unsloth \
   jiar/jupyter4unsloth:latest
 ```
 
-#### Build it yourself (Optional)
+#### 6. Build it yourself (Optional)
 If your graphics card model is not the same as mine (Nvidia RTX4070 graphics card which uses an ampere architecture) , you may need to refer to the official instructions of [unsloth](https://github.com/unslothai/unsloth), adjust the Dockerfile slightly, and finally build your own Docker to complete the adaptation.
 
 **Ampere Card**: The Nvidia Ampere architecture include: RTX 3060 or higher (A100, H100 etc)
