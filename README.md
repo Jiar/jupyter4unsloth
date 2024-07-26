@@ -67,8 +67,13 @@ docker build -t jupyter4unsloth .
 ```
 
 ### Run on Linux direct
-This Dockerfile is most likely compatible with Linux, but because I don't have a machine with an NVIDIA graphics card installed directly on the Linux system, I haven't tested it. On Linux, you can roughly refer to the steps of WSL, but you don't need to install WSL anymore. I will improve this part when I have the relevant machine.
+~This Dockerfile is most likely compatible with Linux, but because I don't have a machine with an NVIDIA graphics card installed directly on the Linux system, I haven't tested it. On Linux, you can roughly refer to the steps of WSL, but you don't need to install WSL anymore. I will improve this part when I have the relevant machine.~
 
+- You can of course use it directly on a Linux machine.
+- Let me use **Ubuntu 24.04** as an example to make a simple illustration.
+- You need to replace step 1 (**Install NVIDIA Windows Driver**) and Step 2 (**Install WSL2 on Windows**) in section **Run on Windows (with WSL2)**.
+- Use the following method to replace, see: [CUDA Toolkit 12.5 Update 1 Downloads](https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=24.04&target_type=deb_network)
+- The rest of the steps follow those section **Run on Windows (with WSL2)**
 
 ## End
 There is nothing here
