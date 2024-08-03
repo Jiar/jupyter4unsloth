@@ -1,4 +1,4 @@
-FROM nvidia/cuda:12.1.1-cudnn8-devel-ubuntu22.04
+FROM nvidia/cuda:12.1.1-devel-ubuntu22.04
 
 # Create a workspace directory
 WORKDIR /workspace
@@ -29,11 +29,14 @@ RUN /opt/conda/bin/conda create -y --name jupyter_env python=3.10
 # Update SHELL
 SHELL ["/opt/conda/bin/conda", "run", "-n", "jupyter_env", "/bin/bash", "-c"]
 
+# Set conda remote timeout
+RUN conda config --set remote_read_timeout_secs 86400
+
 # Install pytorch-cuda, pytorch, cudatoolkit, xformers
 RUN conda install -y pytorch-cuda=12.1 pytorch cudatoolkit xformers -c pytorch -c nvidia -c xformers
 
 # Set pip global timeout
-RUN pip config set global.timeout 3600
+RUN pip config set global.timeout 86400
 
 # Install a commonly used scientific computing library
 RUN pip install numpy pandas scipy matplotlib seaborn scikit-learn datasets
@@ -41,6 +44,9 @@ RUN pip install numpy pandas scipy matplotlib seaborn scikit-learn datasets
 # Install unsloth
 # RUN pip install "unsloth[cu121-torch230] @ git+https://github.com/unslothai/unsloth.git"
 RUN pip install "unsloth[cu121-ampere-torch230] @ git+https://github.com/unslothai/unsloth.git"
+
+# Uninstall flash-attn
+RUN pip uninstall flash-attn -y
 
 # Install trl, peft, accelerate, bitsandbytes
 RUN pip install --no-deps trl peft accelerate bitsandbytes
@@ -72,6 +78,9 @@ RUN /opt/conda/bin/conda init bash
 # Update ~/.bashrc
 RUN echo '# activate conda env' | tee -a ~/.bashrc
 RUN echo 'conda activate jupyter_env' | tee -a ~/.bashrc
+RUN echo '' | tee -a ~/.bashrc
+RUN echo '# fix unsloth bug' | tee -a ~/.bashrc
+RUN echo 'export CUDA_VISIBLE_DEVICES=1' | tee -a ~/.bashrc
 RUN echo '' | tee -a ~/.bashrc
 
 # Expose the JupyterLab service port
