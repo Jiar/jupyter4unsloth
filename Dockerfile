@@ -79,9 +79,6 @@ RUN /opt/conda/bin/conda init bash
 RUN echo '# activate conda env' | tee -a ~/.bashrc
 RUN echo 'conda activate jupyter_env' | tee -a ~/.bashrc
 RUN echo '' | tee -a ~/.bashrc
-RUN echo '# fix unsloth bug' | tee -a ~/.bashrc
-RUN echo 'export CUDA_VISIBLE_DEVICES=1' | tee -a ~/.bashrc
-RUN echo '' | tee -a ~/.bashrc
 
 # Expose the JupyterLab service port
 EXPOSE 8888

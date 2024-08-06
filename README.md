@@ -6,13 +6,11 @@
 ## Introduce
 I originally built this image to be able to use unsloth for large model training on my home Windows 10 gaming machine (with Nvidia RTX4070 graphics card which uses an ampere architecture). It can run well on Ubuntu 22 (WSL2). If your situation is the same as mine, you can also use this image directly. Otherwise, you may need to slightly adjust this Dockerfile. Good luck.
 
-
 ## Run
 
 ### Run on Windows (with WSL2)
 - Follow the [CUDA on WSL User Guide](https://docs.nvidia.com/cuda/wsl-user-guide/index.html)
 - Do not install `Docker Desktop for Windows` and use the WSL integration features above, as it will cause CUDA to be unavailable
-
 
 #### 1. Install NVIDIA Windows Driver
 Install regular Nvidia graphics drivers, usually they support WSL2
@@ -25,7 +23,6 @@ This step requires the installation of WSL, and the WSL2 version is required. Th
 - [Getting Started with CUDA on WSL 2](https://docs.nvidia.com/cuda/wsl-user-guide/index.html#getting-started-with-cuda-on-wsl-2)
 - [Upgrade version from WSL 1 to WSL 2](https://learn.microsoft.com/en-us/windows/wsl/install#upgrade-version-from-wsl-1-to-wsl-2)
 
-
 #### 3. Install Docker Engine on Linux
 After you successfully install Ubuntu22 on WSL2, you need to enter Ubuntu22 and install the Docker engine.
 
@@ -37,18 +34,20 @@ Installing the NVIDIA Container Toolkit and Configurate it
 - [Install the NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html#installation)
 - [Configurate the NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html#configuration)
 
-
 #### 5. Run the jupyter4unsloth docker
 run the jupyter4unsloth docker
 
 ```sh
+# Fix the bug that unsloth does not support multiple GPUs with `--gpus 1`
 docker run -d --name jupyter4unsloth \
-  --gpus all --runtime=nvidia -e NVIDIA_VISIBLE_DEVICES=all \
-  --privileged \
+  --gpus 1 \
   -p 8888:8888 \
   -v /path/to/workspace:/workspace \
   jiar/jupyter4unsloth:latest
 ```
+
+- [Specialized Configurations with Docker](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/docker-specialized.html)
+- [Runtime options with Memory, CPUs, and GPUs](https://docs.docker.com/config/containers/resource_constraints/#gpu)
 
 #### 6. Build it yourself (Optional)
 If your graphics card model is not the same as mine (Nvidia RTX4070 graphics card which uses an ampere architecture) , you may need to refer to the official instructions of [unsloth](https://github.com/unslothai/unsloth), adjust the Dockerfile slightly, and finally build your own Docker to complete the adaptation.

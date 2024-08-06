@@ -1,9 +1,9 @@
 #!/bin/bash
 
+# Fix the bug that unsloth does not support multiple GPUs with `--gpus 1`
 docker run -d --name jupyter4unsloth \
-  --gpus all --runtime=nvidia -e NVIDIA_VISIBLE_DEVICES=all \
-  --privileged \
+  --gpus 1 \
   -p 8888:8888 \
-  -v /mnt/l/LLM/jupyter4unsloth/workspace:/workspace \
+  -v /path/to/workspace:/workspace \
   jiar/jupyter4unsloth:latest
 
